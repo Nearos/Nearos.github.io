@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang='en'>
+	<head>
+		<meta charset="utf-8"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script>
+			function getQuotes(){
+				let idOfIt  = $("input[type='radio']:checked").val();
+				if(idOfIt == "double"){
+					return ['&quot;','&quot;'];
+				}
+				if(idOfIt == "single"){
+					return ['&apos;','&apos;'];
+				}
+				if(idOfIt == "french"){
+					return ['&laquo;','&raquo;'];
+				}
+				return ['(', ')'];
+			}
+
+			function quote(a){
+				if(a=="sex"){
+					return "sex";
+				}else{
+					let quotes = getQuotes();
+					return quotes[0] + a + quotes[1] + " meme";
+				}
+			}
+
+			function genAn(n){
+				var as = new Array();
+				as.push("sex");
+				as.push("Yeah sex is cool but");
+
+				for (var i = 2; i <= n; i++){
+					as.push("Yeah "+ quote(as[i-1]) + " is cool but have you ever had " + quote(as[i-2]));
+				}
+
+				return as[n]; 
+			}
+
+			$(document).ready(function(){
+				$("#generate").click(function(){
+					$("#output").html(
+						genAn(parseInt($("#numiter").val()))
+					);
+				});
+			});
+
+
+		</script>
+
+		<style>
+			h1{
+				text-align: center;
+			}
+			#mainbody{
+				padding:20px;
+			}
+
+			#output{
+				margin: 20px;
+				padding:20px;
+			}
+		</style>
+
+	</head>
+	<body>
+		
+		<h1> Yeah sex is cool but </h1>
+		<div id="mainbody">
+
+			Quote style:
+
+			<input type="radio" id="double" name="quotestyle" value="double">
+			<label for="double">&quot;&quot;</label>
+			<input type="radio" id="single" name="quotestyle" value="single">
+			<label for="single">&apos;&apos;</label>
+			<input type="radio" id="french" name="quotestyle" value="french">
+			<label for="french">&laquo;&raquo;</label> 
+			<input type="radio" id="paran" name="quotestyle" value="paran">
+			<label for="paran">()</label> 
+			<br/>
+			Iterations: <input type="number" id="numiter" value='2'>
+			<br/>
+			<input type="button" id="generate" value="generate">
+
+			<div id="output">
+			</div>
+		</div>
+	</body>
+</html>
